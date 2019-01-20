@@ -20,4 +20,15 @@ class Tag extends Model
     {
         return $this->belongsToMany(Post::class);
     }
+
+    /**
+     * Get tag by ID or Slug
+     *
+     * @param $id string|integer
+     * @return self
+     */
+    public static function getBySlugOrId($id)
+    {
+        return is_numeric($id) ? Tag::findOrFail($id) : Tag::whereSlug($id)->first();
+    }
 }
