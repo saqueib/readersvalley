@@ -137,4 +137,20 @@ class PostTest extends TestCase
 
         $this->assertDatabaseMissing('posts', $payload);
     }
+
+    /**
+     * a post can be shown by id
+     *
+     * @test
+     */
+    public function a_post_can_be_shown_by_id()
+    {
+        $post = factory(Post::class)->create(['slug' => 'i-am-slug']);
+
+        $this->be($this->user, 'api')
+            ->getJson('api/posts/'.$post->id)
+            ->assertStatus(200)
+            ->assertSee($post->title)
+            ->assertSee($post->slug);
+    }
 }
