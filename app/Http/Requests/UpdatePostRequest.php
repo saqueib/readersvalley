@@ -25,7 +25,7 @@ class UpdatePostRequest extends FormRequest
     {
         return [
             'title' => 'min:5|max:255',
-            'slug' => 'required|unique:posts,slug,'.$this->route('id'),
+            'slug' => 'unique:posts,slug,'.$this->route('id'),
         ];
     }
 }
