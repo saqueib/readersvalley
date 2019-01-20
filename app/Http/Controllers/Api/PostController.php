@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\StorePostRequest;
 use App\Http\Resources\PostResource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,10 +22,10 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param StorePostRequest $request
      * @return PostResource
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
         $post = $this->me()->posts()->create($request->only(['title', 'body', 'slug']));
 
