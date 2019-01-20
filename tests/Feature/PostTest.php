@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Post;
-use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -11,14 +10,6 @@ class PostTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $user;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->user = factory(User::class)->create();
-    }
     /**
      * guest cannot create a post
      *
