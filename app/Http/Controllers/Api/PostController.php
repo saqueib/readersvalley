@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Carbon;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\PostResource;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Http\Resources\PostResource;
-use App\Post;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Carbon;
 
 class PostController extends Controller
 {
@@ -85,7 +83,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->me()->posts()->findOrFail($id)->delete();
+        return '';
     }
 
     /**

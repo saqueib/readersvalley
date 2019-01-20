@@ -256,4 +256,20 @@ class PostTest extends TestCase
         $this->assertEquals($payload['published_at'], $post->published_at);
         $this->assertCount(2, $post->tags);
     }
+
+    /**
+     * a post can be deleted
+     *
+     * @test
+     */
+    public function a_post_can_be_deleted()
+    {
+        $post = factory(Post::class)->create(['slug' => 'i-am-slug']);
+
+        $this->be($post->user, 'api')
+            ->deleteJson('api/posts/'.$post->id)
+            ->assertStatus(200);
+
+        $this->assertDatabaseMissing('posts', ['id' => $post->id]);
+    }
 }
