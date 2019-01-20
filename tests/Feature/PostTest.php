@@ -272,4 +272,24 @@ class PostTest extends TestCase
 
         $this->assertDatabaseMissing('posts', ['id' => $post->id]);
     }
+
+    /**
+     * it can list paginated set of posts
+     *
+     * @test
+     */
+    public function it_can_list_paginated_set_of_posts()
+    {
+        $posts = factory(Post::class, 4)->create(['user_id' => $this->user->id]);
+
+        $this->be($this->user, 'api')
+            ->getJson('api/posts')
+            ->assertStatus(200)
+            ->assertJson([
+                'data' => $posts->only('id', 'title')->toArray(),
+                'meta' => [
+                    'total' => 4
+                ]
+            ]);
+    }
 }

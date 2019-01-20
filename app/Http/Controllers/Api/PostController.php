@@ -17,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return PostResource::collection($this->me()->posts()->paginate());
     }
 
     /**
