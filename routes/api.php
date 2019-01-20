@@ -15,4 +15,6 @@ use Illuminate\Http\Request;
 
 Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function () {
    Route::apiResource('posts', 'PostController');
+
+   Route::post('image-upload', 'ImageUploadController');
 });
