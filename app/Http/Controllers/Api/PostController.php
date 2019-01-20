@@ -67,7 +67,11 @@ class PostController extends Controller
             );
 
             $post->published_at = Carbon::parse($publishedAt)->toDateTimeString();
-            $post->syncTags($request->tags);
+        }
+
+        // sync tags
+        if($tags = $request->get('tags', [])) {
+            $post->syncTags($tags);
         }
 
         $post->save();

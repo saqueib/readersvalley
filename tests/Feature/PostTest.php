@@ -179,6 +179,57 @@ class PostTest extends TestCase
     }
 
     /**
+     * a post tags can be updated
+     *
+     * @test
+     */
+    public function a_post_tags_can_be_updated()
+    {
+        $unPublishedPost = factory(Post::class)->create([
+            'published_at' => null
+        ]);
+
+        $payload = [
+            'tags' => [
+                'Laravel',
+                'VueJS',
+                'React'
+            ]
+        ];
+
+        $this->be($unPublishedPost->user, 'api')
+            ->putJson('api/posts/'.$unPublishedPost->id, $payload)
+            ->assertStatus(200);
+
+        $post = $unPublishedPost->fresh();
+        $this->assertCount(3, $post->tags);
+    }
+
+    /**
+     * a post can not be published without tags
+     *
+     * @test
+     */
+    public function a_post_can_not_be_published_without_tags()
+    {
+        $unPublishedPost = factory(Post::class)->create([
+            'published_at' => null
+        ]);
+
+        $payload = [
+            'published_at' => now()->toDateTimeString()
+        ];
+
+        $this->be($unPublishedPost->user, 'api')
+            ->putJson('api/posts/'.$unPublishedPost->id, $payload)
+            ->assertStatus(400);
+
+        $post = $unPublishedPost->fresh();
+        $this->assertNull($post->published_at);
+        $this->assertCount(0, $post->tags);
+    }
+
+    /**
      * a post can be published if has tags
      *
      * @test
