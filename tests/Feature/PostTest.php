@@ -170,6 +170,30 @@ class PostTest extends TestCase
     }
 
     /**
+     * a post meta can be updated for seo
+     *
+     * @test
+     */
+    public function a_post_meta_can_be_updated_for_seo()
+    {
+        $post = factory(Post::class)->create(['slug' => 'i-am-slug']);
+
+        $payload = [
+            'meta' => [
+                'description' => 'Description of post for SEO',
+                'keywords' => 'Old school keywords',
+            ]
+        ];
+
+        $this->be($post->user, 'api')
+            ->putJson('api/posts/'.$post->id, $payload)
+            ->assertStatus(200);
+
+        $post = $post->fresh();
+        $this->assertEquals($payload['meta'], $post->meta);
+    }
+
+    /**
      * a post tags can be updated
      *
      * @test

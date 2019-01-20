@@ -2,8 +2,8 @@
 namespace Tests\Feature;
 
 use App\Post;
-use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

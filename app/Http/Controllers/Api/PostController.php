@@ -54,7 +54,7 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, $id)
     {
         $post = $this->me()->posts()->findOrFail($id);
-        $post->fill($request->only(['title', 'body', 'slug']));
+        $post->fill($request->only(['title', 'body', 'slug', 'meta']));
 
         // is a published request
         if( $publishedAt = $request->get('published_at')) {

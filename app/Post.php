@@ -22,6 +22,24 @@ class Post extends Model
     }
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    public $dates = [
+        'published_at',
+    ];
+
+    /**
+     * The attributes that should be casted.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'meta' => 'array'
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function tags()
