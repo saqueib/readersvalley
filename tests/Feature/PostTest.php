@@ -147,10 +147,34 @@ class PostTest extends TestCase
     {
         $post = factory(Post::class)->create(['slug' => 'i-am-slug']);
 
-        $this->be($this->user, 'api')
+        $this->be($post->user, 'api')
             ->getJson('api/posts/'.$post->id)
             ->assertStatus(200)
             ->assertSee($post->title)
             ->assertSee($post->slug);
+    }
+
+    /**
+     * a post can be updated by author
+     *
+     * @test
+     */
+    public function a_post_can_be_updated_by_author()
+    {
+        $post = factory(Post::class)->create(['slug' => 'i-am-slug']);
+
+        $payload = [
+            'title' => 'Draft post',
+            'body' => 'this is draft post body',
+            'slug' => 'i-am-unique-in-this-world'
+        ];
+
+        $this->be($post->user, 'api')
+            ->putJson('api/posts/'.$post->id, $payload)
+            ->assertStatus(200);
+
+        $post = $post->fresh();
+        $this->assertEquals($payload['title'], $post->title);
+        $this->assertEquals($payload['slug'], $post->slug);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
 use App\Post;
 use Illuminate\Http\Request;
@@ -41,31 +42,21 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::published()->findOrFail($id);
-        return new PostResource($post);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return new PostResource($this->me()->posts()->findOrFail($id));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param UpdatePostRequest $request
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
-        //
+        $post = $this->me()->posts()->findOrFail($id);
+        $post->fill($request->only(['title', 'body', 'slug']));
+        $post->save();
     }
 
     /**
