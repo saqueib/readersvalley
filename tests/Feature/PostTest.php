@@ -177,4 +177,32 @@ class PostTest extends TestCase
         $this->assertEquals($payload['title'], $post->title);
         $this->assertEquals($payload['slug'], $post->slug);
     }
+
+    /**
+     * a post can be published if has tags
+     *
+     * @test
+     */
+    public function a_post_can_be_published_if_has_tags()
+    {
+        $unPublishedPost = factory(Post::class)->create([
+            'published_at' => null
+        ]);
+
+        $payload = [
+            'published_at' => now()->toDateTimeString(),
+            'tags' => [
+                'Laravel',
+                'VueJS'
+            ]
+        ];
+
+        $this->be($unPublishedPost->user, 'api')
+            ->putJson('api/posts/'.$unPublishedPost->id, $payload)
+            ->assertStatus(200);
+
+        $post = $unPublishedPost->fresh();
+        $this->assertEquals($payload['published_at'], $post->published_at);
+        $this->assertCount(2, $post->tags);
+    }
 }

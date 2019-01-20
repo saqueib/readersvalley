@@ -8,6 +8,7 @@ use App\Http\Resources\PostResource;
 use App\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Carbon;
 
 class PostController extends Controller
 {
@@ -56,6 +57,19 @@ class PostController extends Controller
     {
         $post = $this->me()->posts()->findOrFail($id);
         $post->fill($request->only(['title', 'body', 'slug']));
+
+        // is a published request
+        if( $publishedAt = $request->get('published_at')) {
+
+            // check for tags
+            abort_unless($this->hasTags($request, $post), 400,
+                'Post must have atleast one tag assigned before publishing.'
+            );
+
+            $post->published_at = Carbon::parse($publishedAt)->toDateTimeString();
+            $post->syncTags($request->tags);
+        }
+
         $post->save();
     }
 
@@ -68,5 +82,18 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Check if post or request as tags
+     *
+     * @param UpdatePostRequest $request
+     * @param $post
+     *
+     * @return bool
+     */
+    protected function hasTags(UpdatePostRequest $request, $post)
+    {
+        return $post->tags->count() > 0 || $request->has('tags');
     }
 }
