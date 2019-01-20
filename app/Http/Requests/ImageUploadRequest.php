@@ -24,7 +24,8 @@ class ImageUploadRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|image'
+            'image' => 'required|image',
+            'post_id' => 'nullable|exists:posts,id'
         ];
     }
 }

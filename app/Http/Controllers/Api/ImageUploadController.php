@@ -22,8 +22,24 @@ class ImageUploadController extends Controller
             ]
         );
 
+        $url = Storage::disk(config('readers.upload_disk'))->url($path);
+
+        // check if post_id present
+        if($postId = $request->get('post_id') && $path) {
+            $post = $this->me()->posts()->find($postId);
+
+            // old featured image
+            $oldImage = $post->featured_image;
+            $post->update(['featured_image' => $url]);
+
+            // clean up
+            if(Storage::disk(config('readers.upload_disk'))->exists($oldImage)) {
+                Storage::disk(config('readers.upload_disk'))->delete($oldImage);
+            }
+        }
+
         return response()->json([
-            'url' => Storage::disk(config('readers.upload_disk'))->url($path),
+            'url' => $url,
         ]);
     }
 }

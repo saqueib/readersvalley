@@ -1,6 +1,7 @@
 <?php
 namespace Tests\Feature;
 
+use App\Post;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Storage;
@@ -45,5 +46,27 @@ class ImageUploadTest extends TestCase
             ->assertStatus(422);
 
         Storage::disk('public')->assertMissing('uploads/' . $file->hashName());
+    }
+
+    /**
+     * it can upload a post featured image
+     *
+     * @test
+     */
+    public function it_can_upload_a_post_featured_image()
+    {
+        Storage::fake('public');
+        $post = factory(Post::class)->create(['featured_image' => null, 'user_id' => $this->user->id]);
+        $image = UploadedFile::fake()->image('image.jpg', 400, 500);
+
+        $this->be($this->user, 'api')
+            ->postJson('api/image-upload', ['image' => $image, 'post_id' => $post->id])
+            ->assertStatus(200)
+            ->assertJson(['url' => '/storage/uploads/' . $image->hashName()]);
+
+        Storage::disk('public')->assertExists('uploads/' . $image->hashName());
+        $post = $post->fresh();
+        $this->assertNotNull($post->featured_image);
+        $this->assertEquals('/storage/uploads/' . $image->hashName(), $post->featured_image);
     }
 }
