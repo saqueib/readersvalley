@@ -28,4 +28,22 @@ class ImageUploadTest extends TestCase
 
         Storage::disk('public')->assertExists('uploads/' . $image->hashName());
     }
+
+    /**
+     * image upload validation must be image
+     *
+     * @test
+     */
+    public function image_upload_validation_must_be_image()
+    {
+        Storage::fake('public');
+
+        $file = UploadedFile::fake()->create('image.pdf', 10);
+
+        $this->be($this->user, 'api')
+            ->postJson('api/image-upload', ['image' => $file])
+            ->assertStatus(422);
+
+        Storage::disk('public')->assertMissing('uploads/' . $file->hashName());
+    }
 }
