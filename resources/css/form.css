@@ -1,0 +1,19 @@
+.input-group{
+    @apply border-b border-grey-light pt-4 pb-2;
+}
+
+.input-label{
+    @apply font-bold block;
+}
+
+.input{
+    @apply mt-3 w-full;
+}
+
+.input:focus{
+    @apply outline-none;
+}
+
+[contenteditable]:focus{
+    outline: 0;
+}

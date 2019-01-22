@@ -13,10 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function () {
-
+Route::group(['middleware' => 'auth', 'namespace' => 'Api', 'as' => 'api.'], function () {
     Route::apiResource('posts', 'PostController');
     Route::apiResource('tags', 'TagController');
-
     Route::post('image-upload', 'ImageUploadController');
 });

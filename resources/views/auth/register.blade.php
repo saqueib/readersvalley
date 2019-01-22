@@ -1,12 +1,15 @@
 @extends('layouts.app')
-
+@section('title', 'Sign Up')
 @section('content')
 <div class="flex items-center px-6 md:px-0">
     <div class="w-full max-w-md md:mx-auto">
-        <div class="rounded bg-white shadow p-4">
-            <div class="font-serif text-lg text-3xl text-center text-teal-darker p-3 rounded-t">
-                Register
-            </div>
+        <div class="rounded bg-white shadow p-8 mt-12">
+
+            <h3 class="font-serif text-4xl mb-6 text-teal-darkest text-center">
+                Join {{ config('app.name') }}
+            </h3>
+            <p class="text-teal-darkest text-center mb-4">Create an account to personalize your homepage, follow your favorite authors and publications, applaud stories you love, and more.</p>
+
             <div class="p-3 rounded-b">
                 <form class="form-horizontal p-4" method="POST" action="{{ route('register') }}">
                     {{ csrf_field() }}
@@ -53,13 +56,14 @@
 
                     <div class="flex">
                         <div class="w-3/4 ml-auto">
-                            <button type="submit" class="bg-teal-light hover:bg-teal-light-dark text-white text-sm font-semibold py-2 px-4 rounded mr-3">
+                            <button type="submit" class="btn-outline">
                                 Register
                             </button>
                         </div>
                     </div>
                 </form>
             </div>
+
         </div>
     </div>
 </div>

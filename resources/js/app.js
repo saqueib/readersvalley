@@ -4,8 +4,21 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
 window.Vue = require('vue');
 
+import VueProgressBar from 'vue-progressbar'
+
+const options = {
+    color: '#65e7ab',
+    failedColor: '#e74b41',
+    thickness: '2px',
+    autoRevert: true,
+    location: 'top',
+    inverse: false
+}
+
+Vue.use(VueProgressBar, options)
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -17,8 +30,13 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+Vue.component('app', require('./components/App.vue').default);
 Vue.component('modal', require('./components/Modal.vue').default);
 Vue.component('dropdown', require('./components/Dropdown.vue').default);
+Vue.component('editor', require('./components/Editor/Editor.vue').default);
+Vue.component('action-btn', require('./components/ActionBtn.vue').default);
+Vue.component('image-picker', require('./components/ImagePicker.vue').default);
+Vue.component('multiselect', require('vue-multiselect').default)
 
 Vue.directive('click-outside', require('./directives/outsideClick'));
 
@@ -29,13 +47,5 @@ Vue.directive('click-outside', require('./directives/outsideClick'));
  */
 
 const app = new Vue({
-    el: '#app',
-    data: {
-        modals: {}
-    },
-    methods: {
-        showModal(id) {
-            this.$set(this.modals, id + 'IsOpen', true);
-        }
-    }
+    el: '#app'
 });

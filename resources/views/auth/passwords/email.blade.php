@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Forgot Password')
 
 @section('content')
 <div class="flex items-center">
@@ -27,7 +28,7 @@
 
                     <div class="flex">
                         <div class="w-3/4 ml-auto">
-                            <button type="submit" class="bg-teal-light hover:bg-teal-light-dark text-white text-sm font-semibold py-2 px-4 rounded mr-3">
+                            <button type="submit" class="btn-outline">
                                 {{ __('Send Password Reset Link') }}
                             </button>
                         </div>

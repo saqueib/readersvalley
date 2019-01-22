@@ -13,6 +13,10 @@ class Post extends Model
      */
     protected $guarded = [];
 
+    protected $appends = [
+        'read_time'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -71,5 +75,19 @@ class Post extends Model
     public function scopePublished($query)
     {
         return $query->whereNotNull('published_at');
+    }
+
+    /**
+     * Get estimated read time
+     *
+     * @return string
+     */
+    public function getReadTimeAttribute()
+    {
+        $word = str_word_count(strip_tags($this->attributes['body']));
+        $m = floor($word / 200);
+        $estimate = $m . ' minute' . ($m == 1 ? '' : 's');
+
+        return $estimate;
     }
 }

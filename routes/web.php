@@ -11,6 +11,13 @@
 |
 */
 
+Route::get('/', 'LandingController');
+Route::get('/story/{slug}', 'PostController@show')->name('posts.show');
 
 Auth::routes();
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('posts', 'PostController@index')->name('posts.index');
+    Route::get('posts/{id}/edit', 'PostController@edit')->name('posts.edit');
+    Route::get('posts/create', 'PostController@create')->name('posts.create');
+});

@@ -28,6 +28,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * Get avatar from gravatar using email
+     *
+     * @return string
+     */
+    public function getAvatarAttribute()
+    {
+        $hash = md5(strtolower(trim($this->attributes['email'])));
+        return "https://www.gravatar.com/avatar/$hash?d=mp";
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

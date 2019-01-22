@@ -1,0 +1,28 @@
+.btn-outline {
+    @apply no-underline bg-transparent text-sm text-teal py-2 px-4 border border-teal rounded mr-3
+}
+
+.btn-outline:hover {
+    @apply border-teal-dark text-white bg-teal
+}
+
+.btn-secondary {
+    @apply no-underline bg-transparent text-sm text-grey-dark py-2 px-4 border border-grey-dark rounded mr-3
+}
+
+.btn-secondary:hover {
+    @apply border-grey-dark text-grey-darkest bg-grey-lightest
+}
+
+.btn-clear {
+    @apply no-underline text-teal pr-3 text-sm
+}
+
+.btn-clear:hover {
+    @apply text-teal-dark
+}
+
+.disabled {
+    pointer-events: none;
+    @apply opacity-50 cursor-not-allowed
+}

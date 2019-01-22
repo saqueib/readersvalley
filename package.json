@@ -20,5 +20,11 @@
     "tailwindcss": "^0.7.3",
     "vue": "^2.5.17",
     "vue-template-compiler": "^2.5.22"
+  },
+  "dependencies": {
+    "parchment": "^1.1.4",
+    "quill": "^1.3.6",
+    "vue-multiselect": "^2.1.3",
+    "vue-progressbar": "^0.7.5"
   }
 }

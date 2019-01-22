@@ -1,0 +1,13 @@
+.dropdown-content {
+    min-width: 10rem;
+    z-index: 999;
+    @apply absolute bg-white rounded pin-r mt-3 text-sm pt-2 pb-1 text-left shadow
+}
+
+.dropdown-item {
+    @apply no-underline text-black w-full block py-2 px-4 border-t
+}
+
+.dropdown-item:hover {
+    @apply text-teal-dark
+}
