@@ -25,8 +25,8 @@ class ImageUploadController extends Controller
         $url = Storage::disk(config('readers.upload_disk'))->url($path);
 
         // check if post_id present
-        if($postId = $request->get('post_id') && $path) {
-            $post = $this->me()->posts()->find($postId);
+        if($request->has('post_id') && $path) {
+            $post = $this->me()->posts()->find($request->get('post_id'));
 
             // old featured image
             $oldImage = $post->featured_image;
