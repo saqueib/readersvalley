@@ -31,3 +31,6 @@ php artisan storage:link
 php artisan serve
 ```
 Serve the app locally to and visit [http://localhost:8000](http://localhost:8000)
+
+![alt text](landing.jpg "Landing Page")
+![alt text](single-story.jpg "Single Story Page")
