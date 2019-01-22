@@ -97,6 +97,6 @@ class PostController extends Controller
      */
     protected function hasTags(UpdatePostRequest $request, $post)
     {
-        return $post->tags->count() > 0 || $request->has('tags');
+        return $post->tags->count() > 0 || count($request->get('tags', [])) > 0;
     }
 }
