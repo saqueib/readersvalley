@@ -10,7 +10,7 @@ A minimal medium like publishing platform build on Laravel VueJS and TailwindCSS
 ### Installation 
 
 ```
-git clone 
+git clone https://github.com/saqueib/readersvalley.git
 composer install
 cp .env.example .env
 php artisan key:generate
