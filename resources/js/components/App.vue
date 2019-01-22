@@ -9,8 +9,9 @@
         data() {
             return {
                 tags: [],
-                postBodyWatcher: null,
+                imageUploading: false,
                 draft: true,
+                showPublishModal: false,
                 showPublishModal: false,
                 publishing: false,
                 uploading: false,
@@ -134,7 +135,7 @@
                 if (val) this.post.slug = slugify(val);
             }, 600),
             'post.body': _.debounce(function(val) {
-                if (val && this.post.title) this.savePost()
+                if (val && this.post.title && !this.showPublishModal) this.savePost()
             }, 5000)
         },
 

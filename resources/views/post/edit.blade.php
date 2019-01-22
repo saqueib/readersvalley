@@ -7,7 +7,7 @@
             <div class="w-3/4 mb-6">
                 <div class="mb-10">
                     <input v-model="post.title" value="{{ $post->title }}" type="text" class="inline mb-10 w-full outline-none font-normal text-3xl" placeholder="Post title..." />
-                    <editor value="{{ $post->body }}" @input="updatePostBody"></editor>
+                    <editor @opening-image-uploader="imageUploaderOpen" value="{{ $post->body }}" @input="updatePostBody"></editor>
                 </div>
             </div>
         </div>

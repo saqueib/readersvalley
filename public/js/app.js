@@ -1838,31 +1838,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils */ "./resources/js/utils.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
   data: function data() {
-    return {
+    var _ref;
+
+    return _ref = {
       tags: [],
-      postBodyWatcher: null,
+      imageUploading: false,
       draft: true,
-      showPublishModal: false,
-      publishing: false,
-      uploading: false,
-      post: {
-        title: '',
-        slug: '',
-        body: '',
-        featured_image: '',
-        tags: [],
-        meta: {
-          discription: ''
-        }
-      },
-      saving: false
-    };
+      showPublishModal: false
+    }, _defineProperty(_ref, "showPublishModal", false), _defineProperty(_ref, "publishing", false), _defineProperty(_ref, "uploading", false), _defineProperty(_ref, "post", {
+      title: '',
+      slug: '',
+      body: '',
+      featured_image: '',
+      tags: [],
+      meta: {
+        discription: ''
+      }
+    }), _defineProperty(_ref, "saving", false), _ref;
   },
   mounted: function mounted() {
     this.$Progress.finish();
@@ -1914,8 +1914,8 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Update posts featured image.
      */
-    updateFeaturedImage: function updateFeaturedImage(_ref) {
-      var url = _ref.url;
+    updateFeaturedImage: function updateFeaturedImage(_ref2) {
+      var url = _ref2.url;
       this.post.featured_image = url;
       this.savePost();
     },
@@ -1936,8 +1936,8 @@ __webpack_require__.r(__webpack_exports__);
         method: method,
         url: url,
         data: this.post
-      }).then(function (_ref2) {
-        var data = _ref2.data;
+      }).then(function (_ref3) {
+        var data = _ref3.data;
         _this.saving = _this.publishing = false;
 
         if (data.id) {
@@ -1974,7 +1974,7 @@ __webpack_require__.r(__webpack_exports__);
       if (val) this.post.slug = Object(_utils__WEBPACK_IMPORTED_MODULE_2__["slugify"])(val);
     }, 600),
     'post.body': lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (val) {
-      if (val && this.post.title) this.savePost();
+      if (val && this.post.title && !this.showPublishModal) this.savePost();
     }, 5000)
   },
   computed: {
