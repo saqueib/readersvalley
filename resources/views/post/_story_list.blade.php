@@ -3,7 +3,7 @@
         <div class="story my-6 pb-4">
 
             @if(!isset($noThumb) || !$noThumb)
-                <a class="block w-32 h-32 bg-grey-light float-right no-underline" href="">
+                <a class="block ml-3 w-32 h-32 bg-grey-light float-right no-underline" href="">
                     <img class="h-32" src="{{ $post->featured_image }}" alt="">
                 </a>
             @endif
