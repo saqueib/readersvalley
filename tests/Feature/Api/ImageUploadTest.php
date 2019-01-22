@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Feature;
+namespace Tests\Feature\Api;
 
 use App\Post;
 use Tests\TestCase;
